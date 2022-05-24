@@ -1,6 +1,6 @@
 FROM golang:1.18-alpine AS build
 
-#ENV CGO_ENABLED 0
+ENV CGO_ENABLED 0
 ENV GOOS linux
 ENV GOARCH amd64
 
