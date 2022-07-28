@@ -1,0 +1,1 @@
+IEx.after_spawn(fn -> Example.hello() |> IO.puts() end)

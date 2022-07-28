@@ -12,7 +12,7 @@ RUN go mod download
 COPY . .
 RUN go build -o ./out/dist .
 
-FROM alpine
+FROM alpine:latest
 
 RUN apk upgrade --no-cache
 
