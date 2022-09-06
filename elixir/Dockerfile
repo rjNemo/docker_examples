@@ -1,7 +1,7 @@
-FROM elixir:latest
+FROM elixir:1.14-alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN iex -s mix
+CMD ["iex", "-S", "mix"]
