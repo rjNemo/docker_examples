@@ -2,11 +2,13 @@ FROM python:3-slim
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app
+WORKDIR /src
 
-COPY requirements.txt .
+COPY requirements.txt ./
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-CMD uvicorn main:app  --host 0.0.0.0 --port 80
+COPY ./app /src/app
+
+EXPOSE 80
+CMD uvicorn app.main:app --host 0.0.0.0 --port 80
