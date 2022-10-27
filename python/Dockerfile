@@ -1,8 +1,16 @@
-FROM python:3-slim
+FROM python:3.11.0-slim
 
 ENV PYTHONUNBUFFERED 1
 
+RUN useradd -s /bin/bash -m me && \
+    groupadd app && \
+    usermod -aG app me
+
 WORKDIR /src
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt ./
 
