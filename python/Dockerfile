@@ -1,3 +1,14 @@
+FROM python:3.11.0-slim AS builder
+
+WORKDIR /tmp
+
+RUN pip install poetry
+
+COPY pyproject.toml poetry.lock* ./
+
+RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
+
+
 FROM python:3.11.0-slim
 
 ENV PYTHONUNBUFFERED 1
@@ -6,15 +17,15 @@ RUN useradd -s /bin/bash -m me && \
     groupadd app && \
     usermod -aG app me
 
-WORKDIR /src
-
 RUN apt-get update && \
     apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt ./
+WORKDIR /src
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --from=builder /tmp/requirements.txt ./
+
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY ./app /src/app
 

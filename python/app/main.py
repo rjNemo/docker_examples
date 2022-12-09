@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -11,5 +9,5 @@ def read_root() -> dict:
 
 
 @app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None) -> dict:
+def read_item(item_id: int, q: str | None = None) -> dict:
     return {"item_id": item_id, "q": q}
