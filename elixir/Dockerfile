@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY . .
 
-CMD ["iex", "-S", "mix"]
+CMD ["elixir", "hello.exs"]
