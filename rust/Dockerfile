@@ -10,7 +10,7 @@ RUN apk -U upgrade --no-cache && \
 RUN cargo build --release
 
 
-FROM alpine 
+FROM alpine:latest
 
 RUN apk -U upgrade --no-cache 
 

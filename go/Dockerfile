@@ -1,4 +1,4 @@
-FROM golang:1.19-alpine AS build
+FROM golang:1.23-alpine AS build
 
 ENV CGO_ENABLED 0
 ENV GOOS linux
@@ -13,9 +13,7 @@ RUN go mod download
 COPY . ./
 RUN go build -ldflags="-s -w" -o ./out/dist .
 
-FROM alpine:latest
-
-RUN apk -U upgrade --no-cache
+FROM scratch
 
 COPY --from=build /app/out/dist .
 
