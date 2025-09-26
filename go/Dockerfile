@@ -1,4 +1,4 @@
-FROM golang:1.23-alpine AS build
+FROM golang:1.25-alpine AS build
 
 ENV CGO_ENABLED 0
 ENV GOOS linux
@@ -15,7 +15,7 @@ RUN go build -ldflags="-s -w" -o ./out/dist .
 
 FROM scratch
 
-COPY --from=build /app/out/dist .
+COPY --from=build /app/out/dist /dist
 
 EXPOSE 80
-CMD ./dist
+CMD ["./dist"]

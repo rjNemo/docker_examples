@@ -11,12 +11,12 @@
 
 ## 👷 Build a container
 
-```shell
+```sh
 docker build -t $APPNAME:$VERSION .
 ```
 
 ## 🏃 Run a container
 
-```shell
+```sh
 docker run --rm $APPNAME:$VERSION 
 ```

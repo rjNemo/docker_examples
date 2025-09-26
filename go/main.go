@@ -1,11 +1,22 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"encoding/json"
+	"net/http"
+)
 
 func main() {
-	router := gin.Default()
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "pong"})
-	})
-	router.Run(":80") // http://0.0.0.0/
+	http.HandleFunc("/", func() http.Handler {
+
+		type Response struct {
+			Message string `json:"message"`
+		}
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/json")
+			response := Response{Message: "pong"}
+			json.NewEncoder(w).Encode(response)
+		})
+	}())
+
+	http.ListenAndServe(":80", nil) // http://0.0.0.0/
 }
